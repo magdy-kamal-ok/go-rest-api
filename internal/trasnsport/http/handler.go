@@ -11,7 +11,7 @@ type Handler struct {
 	Router *mux.Router
 }
 
-func Handler() *Handler {
+func NewHandler() *Handler {
 	return &Handler{}
 }
 
