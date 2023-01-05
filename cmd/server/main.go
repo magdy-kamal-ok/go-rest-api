@@ -2,22 +2,22 @@ package main
 
 import (
 	"fmt"
-	"net/http"
-
-	db "github.com/magdy-kamal-ok/go-rest-api/internal/databse"
+	"github.com/magdy-kamal-ok/go-rest-api/internal/database"
 	trasnportHttp "github.com/magdy-kamal-ok/go-rest-api/internal/trasnsport/http"
+	"net/http"
 )
 
 type App struct{}
 
 func (app *App) Run() error {
 	fmt.Println("Start running App")
-	var err error
-	_, err := db.NewDatabase()
+	db, err := database.NewDatabase()
 	if err != nil {
+		fmt.Println("Error happens", err)
 		return err
 	}
-	handler := trasnportHttp.NewHandler()
+	commentService := comment.NewService(db)
+	handler := trasnportHttp.NewHandler(commentService)
 	handler.SetupRoutes()
 	if err := http.ListenAndServe(":8080", handler.Router); err != nil {
 		fmt.Println("Error happens")
