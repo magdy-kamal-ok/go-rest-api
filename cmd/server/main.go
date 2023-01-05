@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/magdy-kamal-ok/go-rest-api/internal/comment"
 	"github.com/magdy-kamal-ok/go-rest-api/internal/database"
 	trasnportHttp "github.com/magdy-kamal-ok/go-rest-api/internal/trasnsport/http"
 	"net/http"
@@ -14,6 +15,10 @@ func (app *App) Run() error {
 	db, err := database.NewDatabase()
 	if err != nil {
 		fmt.Println("Error happens", err)
+		return err
+	}
+	err = database.MigrateDB(db)
+	if err != nil {
 		return err
 	}
 	commentService := comment.NewService(db)

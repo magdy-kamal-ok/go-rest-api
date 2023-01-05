@@ -47,7 +47,7 @@ func (s *Service) GetCommentBySlug(slug string) ([]Comment, error) {
 }
 
 func (s *Service) PostComment(comment Comment) (Comment, error) {
-	if result := s.DB.Save(comment); result.Error != nil {
+	if result := s.DB.Save(&comment); result.Error != nil {
 		return Comment{}, result.Error
 	}
 	return comment, nil
