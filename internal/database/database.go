@@ -6,10 +6,11 @@ import (
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
+	log "github.com/sirupsen/logrus"
 )
 
 func NewDatabase() (*gorm.DB, error) {
-	fmt.Println("Setup Db connection")
+	log.Info("Setup Db connection")
 	dbUsername := os.Getenv("DB_USERNAME")
 	dbPassword := os.Getenv("DB_PASSWORD")
 	dbHost := os.Getenv("DB_HOST")

@@ -1,0 +1,28 @@
+---
+apiVersion: apps/1
+kind: Deployment
+metadata:
+  name: comments-api
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      name: comments-api
+  template:
+    metadata:
+      labels:
+        name: comments-api
+    spec:
+      containers:
+      - name: application
+        image: ""
+        imagePullPolicy: Always
+        ports:
+        - containerPorts: 8080
+        env: 
+          
